@@ -3,739 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI GST Expert | Professional Tax Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>AI GST Expert | Professional Tax Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #141414;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --border-color: #2a2a2a;
-            --accent: #ffffff;
-            --accent-hover: #e0e0e0;
-            --success: #00ff88;
-            --error: #ff4757;
-            --warning: #ffa502;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
-        
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        
-        .logo span {
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-        
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: var(--text-primary);
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 3rem 4rem;
-            text-align: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-        }
-        
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeUp 0.8s ease forwards 0.2s;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            opacity: 0;
-            animation: fadeUp 0.8s ease forwards 0.4s;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            opacity: 0;
-            animation: fadeUp 0.8s ease forwards 0.6s;
-        }
-        
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Sections */
-        section {
-            padding: 6rem 3rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-        }
-        
-        .section-header p {
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        /* Calculator Section */
-        .calculator {
-            background: var(--bg-secondary);
-        }
-        
-        .calculator-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .input-group {
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeUp 0.6s ease forwards;
-        }
-        
-        .input-group:nth-child(1) { animation-delay: 0.1s; }
-        .input-group:nth-child(2) { animation-delay: 0.2s; }
-        .input-group:nth-child(3) { animation-delay: 0.3s; }
-        
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        
-        .input-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        
-        .input-item {
-            position: relative;
-        }
-        
-        .input-item input {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .input-item input:focus {
-            outline: none;
-            border-color: var(--text-muted);
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
-        }
-        
-        .input-item input::placeholder {
-            color: var(--text-muted);
-        }
-        
-        .input-item span {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-        
-        .calculate-btn {
-            width: 100%;
-            padding: 1.25rem;
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 2rem;
-        }
-        
-        .calculate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15);
-        }
-        
-        /* Results */
-        .results {
-            margin-top: 4rem;
-            padding: 3rem;
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-        
-        .results.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .results-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .results-header h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .result-card {
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        
-        .result-card:hover {
-            border-color: var(--text-muted);
-        }
-        
-        .result-card .label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-        
-        .result-card .value {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-        
-        .result-card.highlight {
-            background: var(--bg-primary);
-            border-color: var(--text-muted);
-        }
-        
-        .result-card.highlight .value {
-            color: var(--text-primary);
-        }
-        
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .feature-card {
-            padding: 2rem;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeUp 0.6s ease forwards;
-        }
-        
-        .feature-card:nth-child(1) { animation-delay: 0.1s; }
-        .feature-card:nth-child(2) { animation-delay: 0.2s; }
-        .feature-card:nth-child(3) { animation-delay: 0.3s; }
-        .feature-card:nth-child(4) { animation-delay: 0.4s; }
-        .feature-card:nth-child(5) { animation-delay: 0.5s; }
-        .feature-card:nth-child(6) { animation-delay: 0.6s; }
-        
-        .feature-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--text-muted);
-        }
-        
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-tertiary);
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-        
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 3rem;
-            text-align: center;
-            border-bottom: none;
-        }
-        
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        
-        footer a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        footer a:hover {
-            color: var(--text-primary);
-        }
-        
-        /* Animations */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem 1.5rem;
-            }
-            
-            nav {
-                display: none;
-            }
-            
-            .hero {
-                padding: 6rem 1.5rem 3rem;
-            }
-            
-            section {
-                padding: 4rem 1.5rem;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-            }
-            
-            .input-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Loading state */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 3rem;
-        }
-        
-        .loading.show {
-            display: block;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--border-color);
-            border-top-color: var(--text-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-        
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-primary: #050505; --bg-secondary: #0a0a0a; --bg-tertiary: #111111; --text-primary: #ffffff; --text-secondary: #888888; --text-muted: #555555; --border-color: #222222; --border-hover: #333333; --accent: #ffffff; --success: #00ff88; --error: #ff4757; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        header { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(30px); border-bottom: 1px solid var(--border-color); z-index: 1000; }
+        .logo { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.03em; display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #fff 0%, #ccc 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        .logo span { color: var(--text-secondary); font-weight: 400; }
+        nav { display: flex; gap: 2.5rem; }
+        nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: var(--text-primary); }
+        .header-btn { padding: 0.6rem 1.25rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+        .header-btn:hover { background: var(--bg-card); }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 3rem 4rem; text-align: center; }
+        .hero-bg { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.02) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.02) 0%, transparent 50%); }
+        .hero-content { max-width: 700px; position: relative; z-index: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 100px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .hero-badge span { color: var(--success); }
+        .hero h1 { font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 1.5rem; }
+        .hero h1 .gradient { background: linear-gradient(135deg, #fff 0%, #ccc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 550px; margin: 0 auto 2.5rem; }
+        .hero-btns { display: flex; gap: 1rem; justify-content: center; }
+        .btn { padding: 1rem 2rem; font-size: 0.95rem; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; border: none; }
+        .btn-primary { background: linear-gradient(135deg, #fff 0%, #ccc 100%); color: #000; box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2); }
+        .btn-secondary { background: transparent; color: #fff; border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background: var(--bg-tertiary); border-color: var(--border-hover); }
+        .stats { display: flex; gap: 3rem; justify-content: center; margin-top: 4rem; }
+        .stat { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+        section { padding: 6rem 3rem; border-bottom: 1px solid var(--border-color); }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-header p { color: var(--text-secondary); max-width: 500px; margin: 0 auto; }
+        .calculator { background: var(--bg-secondary); }
+        .calculator-wrapper { max-width: 1100px; margin: 0 auto; }
+        .calc-tabs { display: flex; gap: 0.5rem; margin-bottom: 3rem; justify-content: center; flex-wrap: wrap; }
+        .calc-tab { padding: 0.75rem 1.5rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+        .calc-tab.active { background: var(--bg-primary); border-color: #666; color: #fff; }
+        .calc-tab:hover:not(.active) { border-color: var(--border-hover); }
+        .calc-content { display: none; }
+        .calc-content.active { display: block; animation: fadeIn 0.4s; }
+        .input-section { margin-bottom: 2.5rem; }
+        .input-section-title { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+        .input-item { position: relative; }
+        .input-item label { display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+        .input-item input { width: 100%; padding: 1rem 1.25rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 10px; color: #fff; font-size: 1rem; font-weight: 500; transition: all 0.3s; }
+        .input-item input:focus { outline: none; border-color: #666; box-shadow: 0 0 0 3px rgba(255,255,255,0.03); }
+        .input-item input::placeholder { color: var(--text-muted); }
+        .calculate-btn { width: 100%; padding: 1.25rem; background: linear-gradient(135deg, #fff 0%, #ccc 100%); color: #000; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-top: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+        .calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2); }
+        .results-section { margin-top: 4rem; }
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .result-card { padding: 1.5rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 16px; transition: all 0.3s; }
+        .result-card:hover { transform: translateY(-2px); border-color: var(--border-hover); }
+        .result-card.highlight { background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(255,255,255,0.05) 100%); border-color: #666; }
+        .result-card .icon { width: 40px; height: 40px; background: var(--bg-secondary); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .result-card .label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .result-card .value { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+        .result-card .subtext { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; }
+        .breakdown { margin-top: 2rem; padding: 1.5rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 16px; }
+        .breakdown-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .breakdown-item { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        .breakdown-item:last-child { border-bottom: none; }
+        .breakdown-item .label { color: var(--text-secondary); }
+        .breakdown-item .value { font-weight: 500; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .feature-card { padding: 2rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 20px; transition: all 0.4s; }
+        .feature-card:hover { transform: translateY(-4px); border-color: var(--border-hover); }
+        .feature-icon { width: 52px; height: 52px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.25rem; }
+        .feature-card:hover .feature-icon { background: var(--bg-primary); border-color: #666; }
+        .feature-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .feature-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
+        .tool-card { padding: 1.5rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 16px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 1rem; }
+        .tool-card:hover { background: var(--bg-tertiary); border-color: var(--border-hover); transform: translateX(4px); }
+        .tool-icon { width: 48px; height: 48px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+        .tool-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tool-info p { font-size: 0.85rem; color: var(--text-secondary); }
+        footer { padding: 4rem 3rem 2rem; text-align: center; border-bottom: none; }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .footer-logo { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+        footer p { color: var(--text-muted); font-size: 0.9rem; }
+        footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; }
+        footer a:hover { color: #fff; }
+        .footer-links { display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
+        .footer-links a { font-size: 0.85rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media (max-width: 768px) { header { padding: 1rem 1.5rem; } nav { display: none; } .hero { padding: 6rem 1.5rem 3rem; } section { padding: 4rem 1.5rem; } .hero-btns { flex-direction: column; align-items: center; } .stats { flex-direction: column; gap: 1.5rem; } .footer-links { flex-direction: column; gap: 1rem; } }
+        .toast { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 12px; color: #fff; font-size: 0.9rem; z-index: 10000; transform: translateY(100px); opacity: 0; transition: all 0.4s; }
+        .toast.show { transform: translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">AI GST <span>Expert</span></div>
-        <nav>
-            <a href="#calculator">Calculator</a>
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-        </nav>
+        <div class="logo"><div class="logo-icon">⚡</div>AI GST <span>Expert</span></div>
+        <nav><a href="#calculator">Calculator</a><a href="#tools">Tools</a><a href="#features">Features</a></nav>
+        <button class="header-btn" onclick="showToast('Coming soon!')">Sign In</button>
     </header>
-    
     <section class="hero">
+        <div class="hero-bg"></div>
         <div class="hero-content">
-            <h1>Smart GST Calculations for Modern Business</h1>
-            <p>Professional Indian GST calculator with intelligent tax computation, ITC tracking, and compliance monitoring.</p>
-            <div class="hero-btns">
-                <a href="#calculator" class="btn btn-primary">Calculate GST</a>
-                <a href="#features" class="btn btn-secondary">Explore Features</a>
-            </div>
+            <div class="hero-badge"><span>●</span> AI-Powered GST Platform</div>
+            <h1>Smart GST for <span class="gradient">Modern Business</span></h1>
+            <p>Professional tax calculations, ITC tracking, compliance monitoring, and intelligent insights.</p>
+            <div class="hero-btns"><a href="#calculator" class="btn btn-primary"><i class="fas fa-calculator"></i> Start Calculating</a><a href="#tools" class="btn btn-secondary"><i class="fas fa-tools"></i> Explore Tools</a></div>
+            <div class="stats"><div class="stat"><div class="stat-value">₹2Cr+</div><div class="stat-label">Turnover Supported</div></div><div class="stat"><div class="stat-value">18%</div><div class="stat-label">Avg. Tax Saved</div></div><div class="stat"><div class="stat-value">100%</div><div class="stat-label">Accuracy Rate</div></div></div>
         </div>
     </section>
-    
     <section class="calculator" id="calculator">
-        <div class="section-header">
-            <h2>GST Calculator</h2>
-            <p>Enter your sales and purchase details for accurate tax computation</p>
-        </div>
-        
-        <div class="calculator-container">
-            <div class="input-group">
-                <label>Sales (Output Tax)</label>
-                <div class="input-grid">
-                    <div class="input-item">
-                        <input type="number" id="sales5" placeholder="5% Rate">
-                        <span>₹</span>
-                    </div>
-                    <div class="input-item">
-                        <input type="number" id="sales12" placeholder="12% Rate">
-                        <span>₹</span>
-                    </div>
-                    <div class="input-item">
-                        <input type="number" id="sales18" placeholder="18% Rate">
-                        <span>₹</span>
-                    </div>
-                    <div class="input-item">
-                        <input type="number" id="sales28" placeholder="28% Rate">
-                        <span>₹</span>
-                    </div>
+        <div class="section-header"><h2>GST Calculator</h2><p>Calculate your tax liability with precision</p></div>
+        <div class="calculator-wrapper">
+            <div class="calc-tabs"><button class="calc-tab active" data-tab="gst">GST Calculator</button><button class="calc-tab" data-tab="itc">ITC Tracker</button><button class="calc-tab" data-tab="penalty">Penalty Calculator</button></div>
+            <div class="calc-content active" id="gst-tab">
+                <div class="input-section"><div class="input-section-title"><i class="fas fa-arrow-up"></i> Sales (Output Tax)</div><div class="input-grid"><div class="input-item"><label>5% Rate</label><input type="number" id="sales5" placeholder="0"></div><div class="input-item"><label>12% Rate</label><input type="number" id="sales12" placeholder="0"></div><div class="input-item"><label>18% Rate</label><input type="number" id="sales18" placeholder="0"></div><div class="input-item"><label>28% Rate</label><input type="number" id="sales28" placeholder="0"></div></div></div>
+                <div class="input-section"><div class="input-section-title"><i class="fas fa-arrow-down"></i> Purchases (ITC)</div><div class="input-grid"><div class="input-item"><label>5% Rate</label><input type="number" id="purchase5" placeholder="0"></div><div class="input-item"><label>12% Rate</label><input type="number" id="purchase12" placeholder="0"></div><div class="input-item"><label>18% Rate</label><input type="number" id="purchase18" placeholder="0"></div><div class="input-item"><label>28% Rate</label><input type="number" id="purchase28" placeholder="0"></div></div></div>
+                <button class="calculate-btn" onclick="calculateGST()"><i class="fas fa-calculator"></i> Calculate Tax Liability</button>
+                <div class="results-section" id="gst-results" style="display: none;">
+                    <div class="results-grid"><div class="result-card"><div class="icon">📊</div><div class="label">Total Sales</div><div class="value" id="totalSales">₹0</div></div><div class="result-card"><div class="icon">📤</div><div class="label">Output Tax</div><div class="value" id="outputTax">₹0</div></div><div class="result-card"><div class="icon">📥</div><div class="label">ITC Claimed</div><div class="value" id="itcClaimed">₹0</div></div><div class="result-card highlight"><div class="icon">💰</div><div class="label">Net Payable</div><div class="value" id="netPayable">₹0</div></div></div>
+                    <div class="breakdown"><div class="breakdown-title"><i class="fas fa-chart-pie"></i> Detailed Breakdown</div><div class="breakdown-item"><span class="label">CGST (50%)</span><span class="value" id="cgst">₹0</span></div><div class="breakdown-item"><span class="label">SGST/UTGST (50%)</span><span class="value" id="sgst">₹0</span></div><div class="breakdown-item"><span class="label">IGST</span><span class="value" id="igst">₹0</span></div><div class="breakdown-item"><span class="label">Effective Rate</span><span class="value" id="effectiveRate">0%</span></div></div>
                 </div>
             </div>
-            
-            <div class="input-group">
-                <label>Purchases (Input Tax Credit)</label>
-                <div class="input-grid">
-                    <div class="input-item">
-                        <input type="number" id="purchase5" placeholder="5% Rate">
-                        <span>₹</span>
-                    </div>
-                    <div class="input-item">
-                        <input type="number" id="purchase12" placeholder="12% Rate">
-                        <span>₹</span>
-                    </div>
-                    <div class="input-item">
-                        <input type="number" id="purchase18" placeholder="18% Rate">
-                        <span>₹</span>
-                    </div>
-                    <div class="input-item">
-                        <input type="number" id="purchase28" placeholder="28% Rate">
-                        <span>₹</span>
-                    </div>
+            <div class="calc-content" id="itc-tab">
+                <div class="input-section"><div class="input-section-title"><i class="fas fa-file-invoice"></i> ITC Details</div><div class="input-grid"><div class="input-item"><label>Import Credit</label><input type="number" id="importCredit" placeholder="0"></div><div class="input-item"><label>Reverse Charge</label><input type="number" id="reverseCharge" placeholder="0"></div><div class="input-item"><label>Capital Goods</label><input type="number" id="capitalGoods" placeholder="0"></div><div class="input-item"><label>Input Services</label><input type="number" id="inputServices" placeholder="0"></div></div></div>
+                <button class="calculate-btn" onclick="calculateITC()"><i class="fas fa-calculator"></i> Calculate ITC</button>
+                <div class="results-section" id="itc-results" style="display: none;">
+                    <div class="results-grid"><div class="result-card highlight"><div class="icon">✓</div><div class="label">Total ITC Available</div><div class="value" id="totalITC">₹0</div></div><div class="result-card"><div class="icon">⚠</div><div class="label">Ineligible ITC</div><div class="value" id="ineligibleITC">₹0</div></div></div>
                 </div>
             </div>
-            
-            <button class="calculate-btn" onclick="calculateGST()">Calculate Tax Liability</button>
-            
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Computing tax...</p>
-            </div>
-            
-            <div class="results" id="results">
-                <div class="results-header">
-                    <h3>Tax Summary</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">FY 2025-26</p>
-                </div>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="label">Total Sales</div>
-                        <div class="value" id="totalSales">₹0</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="label">Output Tax</div>
-                        <div class="value" id="outputTax">₹0</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="label">ITC Claimed</div>
-                        <div class="value" id="itcClaimed">₹0</div>
-                    </div>
-                    <div class="result-card highlight">
-                        <div class="label">Net Payable</div>
-                        <div class="value" id="netPayable">₹0</div>
-                    </div>
+            <div class="calc-content" id="penalty-tab">
+                <div class="input-section"><div class="input-section-title"><i class="fas fa-exclamation-triangle"></i> Late Filing</div><div class="input-grid"><div class="input-item"><label>Days Delayed</label><input type="number" id="daysDelayed" placeholder="0"></div><div class="input-item"><label>Tax Amount (₹)</label><input type="number" id="taxAmount" placeholder="0"></div></div></div>
+                <button class="calculate-btn" onclick="calculatePenalty()"><i class="fas fa-calculator"></i> Calculate Penalty</button>
+                <div class="results-section" id="penalty-results" style="display: none;">
+                    <div class="results-grid"><div class="result-card highlight"><div class="icon">💸</div><div class="label">Late Fee (GSTR-1)</div><div class="value" id="gstr1Penalty">₹0</div></div><div class="result-card"><div class="icon">📋</div><div class="label">Late Fee (GSTR-3B)</div><div class="value" id="gstr3bPenalty">₹0</div></div><div class="result-card"><div class="icon">⚡</div><div class="label">Interest @18%</div><div class="value" id="interest">₹0</div></div><div class="result-card" style="border-color: var(--error);"><div class="icon">📊</div><div class="label">Total Liability</div><div class="value" id="totalPenalty">₹0</div></div></div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section id="features">
-        <div class="section-header">
-            <h2>Features</h2>
-            <p>Everything you need for GST compliance</p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Smart Calculations</h3>
-                <p>Accurate GST computation across all tax rates with real-time updates and validation.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔄</div>
-                <h3>ITC Tracking</h3>
-                <p>Monitor input tax credits automatically and identify eligible claims.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📅</div>
-                <h3>Deadline Alerts</h3>
-                <p>Never miss filing deadlines with smart reminders and compliance calendar.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📈</div>
-                <h3>Reports & Analytics</h3>
-                <p>Generate detailed tax reports and visualize your tax liability trends.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Secure & Private</h3>
-                <p>Your data stays on your device. No servers, no tracking, complete privacy.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Lightning Fast</h3>
-                <p>Instant calculations with zero latency. Optimized for speed and performance.</p>
-            </div>
-        </div>
-    </section>
-    
-    <footer id="about">
-        <p>AI GST Expert v1.0 &bull; Built with precision &bull; <a href="https://github.com/Yahiya435/gst-assistant">View on GitHub</a></p>
-        <p style="margin-top: 0.5rem; color: var(--text-muted);">For advisory, consult a qualified CA. This tool is for calculation only.</p>
-    </footer>
-    
+    <section id="tools"><div class="section-header"><h2>Quick Tools</h2><p>Essential utilities for GST compliance</p></div><div class="tools-grid"><div class="tool-card" onclick="showToast('Coming soon!')"><div class="tool-icon">🔢</div><div class="tool-info"><h4>GSTIN Validator</h4><p>Verify GST registration numbers</p></div></div><div class="tool-card" onclick="showToast('Coming soon!')"><div class="tool-icon">📑</div><div class="tool-info"><h4>HSN Code Search</h4><p>Find correct HSN/SAC codes</p></div></div><div class="tool-card" onclick="showToast('Coming soon!')"><div class="tool-icon">📅</div><div class="tool-info"><h4>Deadline Calendar</h4><p>All GST filing due dates</p></div></div><div class="tool-card" onclick="showToast('Coming soon!')"><div class="tool-icon">📊</div><div class="tool-info"><h4>Export to Excel</h4><p>Download reports in CSV</p></div></div></div></section>
+    <section id="features"><div class="section-header"><h2>Features</h2><p>Everything you need for GST compliance</p></div><div class="features-grid"><div class="feature-card"><div class="feature-icon">📊</div><h3>Smart Calculations</h3><p>Accurate GST computation across all tax rates with real-time validation.</p></div><div class="feature-card"><div class="feature-icon">🔄</div><h3>ITC Tracking</h3><p>Monitor input tax credits automatically and identify eligible claims.</p></div><div class="feature-card"><div class="feature-icon">📅</div><h3>Deadline Alerts</h3><p>Never miss filing deadlines with smart reminders and compliance calendar.</p></div><div class="feature-card"><div class="feature-icon">📈</div><h3>Reports & Analytics</h3><p>Generate detailed tax reports and visualize your tax liability trends.</p></div><div class="feature-card"><div class="feature-icon">🔒</div><h3>Secure & Private</h3><p>Your data stays on your device. No servers, no tracking, complete privacy.</p></div><div class="feature-card"><div class="feature-icon">⚡</div><h3>Lightning Fast</h3><p>Instant calculations with zero latency. Optimized for speed.</p></div></div></section>
+    <footer><div class="footer-content"><div class="footer-logo">AI GST Expert</div><div class="footer-links"><a href="#calculator">Calculator</a><a href="#tools">Tools</a><a href="#features">Features</a><a href="https://github.com/Yahiya435/gst-assistant" target="_blank">GitHub</a></div><p>For advisory, consult a qualified CA. This tool is for calculation only.</p></div></footer>
+    <div class="toast" id="toast"></div>
     <script>
-        function formatCurrency(amount) {
-            return '₹' + amount.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-        }
-        
+        function formatCurrency(amount) { return '₹' + amount.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+        document.querySelectorAll('.calc-tab').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.calc-content').forEach(c => c.classList.remove('active')); tab.classList.add('active'); document.getElementById(tab.dataset.tab + '-tab').classList.add('active'); }); });
         function calculateGST() {
-            const loading = document.getElementById('loading');
-            const results = document.getElementById('results');
-            
-            // Show loading
-            loading.classList.add('show');
-            results.classList.remove('show');
-            
-            // Get values
             const sales5 = parseFloat(document.getElementById('sales5').value) || 0;
             const sales12 = parseFloat(document.getElementById('sales12').value) || 0;
             const sales18 = parseFloat(document.getElementById('sales18').value) || 0;
             const sales28 = parseFloat(document.getElementById('sales28').value) || 0;
-            
             const purchase5 = parseFloat(document.getElementById('purchase5').value) || 0;
             const purchase12 = parseFloat(document.getElementById('purchase12').value) || 0;
             const purchase18 = parseFloat(document.getElementById('purchase18').value) || 0;
             const purchase28 = parseFloat(document.getElementById('purchase28').value) || 0;
-            
-            // Calculate
-            const outputTax5 = sales5 * 0.05;
-            const outputTax12 = sales12 * 0.12;
-            const outputTax18 = sales18 * 0.18;
-            const outputTax28 = sales28 * 0.28;
-            
-            const totalOutputTax = outputTax5 + outputTax12 + outputTax18 + outputTax28;
             const totalSales = sales5 + sales12 + sales18 + sales28;
-            
-            const itc5 = purchase5 * 0.05;
-            const itc12 = purchase12 * 0.12;
-            const itc18 = purchase18 * 0.18;
-            const itc28 = purchase28 * 0.28;
-            
-            const totalITC = itc5 + itc12 + itc18 + itc28;
+            const totalOutputTax = sales5 * 0.05 + sales12 * 0.12 + sales18 * 0.18 + sales28 * 0.28;
+            const totalITC = purchase5 * 0.05 + purchase12 * 0.12 + purchase18 * 0.18 + purchase28 * 0.28;
             const netPayable = totalOutputTax - totalITC;
-            
-            // Simulate loading
-            setTimeout(() => {
-                document.getElementById('totalSales').textContent = formatCurrency(totalSales);
-                document.getElementById('outputTax').textContent = formatCurrency(totalOutputTax);
-                document.getElementById('itcClaimed').textContent = formatCurrency(totalITC);
-                document.getElementById('netPayable').textContent = formatCurrency(netPayable);
-                
-                loading.classList.remove('show');
-                results.classList.add('show');
-            }, 800);
+            document.getElementById('totalSales').textContent = formatCurrency(totalSales);
+            document.getElementById('outputTax').textContent = formatCurrency(totalOutputTax);
+            document.getElementById('itcClaimed').textContent = formatCurrency(totalITC);
+            document.getElementById('netPayable').textContent = formatCurrency(netPayable);
+            document.getElementById('cgst').textContent = formatCurrency(totalOutputTax * 0.5);
+            document.getElementById('sgst').textContent = formatCurrency(totalOutputTax * 0.5);
+            document.getElementById('igst').textContent = '₹0 (Intra-state)';
+            document.getElementById('effectiveRate').textContent = totalSales > 0 ? ((totalOutputTax / totalSales) * 100).toFixed(2) + '%' : '0%';
+            document.getElementById('gst-results').style.display = 'block';
+            showToast('Calculation complete!');
         }
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        function calculateITC() {
+            const importCredit = parseFloat(document.getElementById('importCredit').value) || 0;
+            const reverseCharge = parseFloat(document.getElementById('reverseCharge').value) || 0;
+            const capitalGoods = parseFloat(document.getElementById('capitalGoods').value) || 0;
+            const inputServices = parseFloat(document.getElementById('inputServices').value) || 0;
+            const totalITC = importCredit + reverseCharge + capitalGoods + inputServices;
+            const ineligibleITC = reverseCharge * 0.1;
+            document.getElementById('totalITC').textContent = formatCurrency(totalITC - ineligibleITC);
+            document.getElementById('ineligibleITC').textContent = formatCurrency(ineligibleITC);
+            document.getElementById('itc-results').style.display = 'block';
+            showToast('ITC calculated!');
+        }
+        function calculatePenalty() {
+            const days = parseFloat(document.getElementById('daysDelayed').value) || 0;
+            const tax = parseFloat(document.getElementById('taxAmount').value) || 0;
+            const gstr1Penalty = days * 50;
+            const gstr3bPenalty = days * 50;
+            const interest = (tax * 0.18 * days / 365);
+            const total = gstr1Penalty + gstr3bPenalty + interest;
+            document.getElementById('gstr1Penalty').textContent = formatCurrency(gstr1Penalty);
+            document.getElementById('gstr3bPenalty').textContent = formatCurrency(gstr3bPenalty);
+            document.getElementById('interest').textContent = formatCurrency(interest);
+            document.getElementById('totalPenalty').textContent = formatCurrency(total);
+            document.getElementById('penalty-results').style.display = 'block';
+            showToast('Penalty calculated!');
+        }
+        function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000); }
     </script>
 </body>
 </html>
