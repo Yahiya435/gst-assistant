@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI GST Expert - Private Limited</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .card h2 {
+            color: #00d9ff;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #00d9ff;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .sales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .sales-item {
+            background: rgba(0,217,255,0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid rgba(0,217,255,0.2);
+        }
+        
+        .sales-item label {
+            color: #00d9ff;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,217,255,0.3);
+        }
+        
+        .result {
+            background: rgba(0,255,136,0.1);
+            border: 2px solid rgba(0,255,136,0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result h3 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .result-item {
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .result-item .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        
+        .result-item .label {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+        
+        .net-payment {
+            background: linear-gradient(135deg, rgba(0,217,255,0.2), rgba(0,255,136,0.2));
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .net-payment .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00d9ff;
+        }
+        
+        .info-box {
+            background: rgba(255,193,7,0.1);
+            border: 1px solid rgba(255,193,7,0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .info-box h4 {
+            color: #ffc107;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-box p {
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            color: #1a1a2e;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section-title {
+            color: #00d9ff;
+            font-size: 1.1rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #555;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇮🇳 AI GST Expert</h1>
+            <p class="subtitle">Private Limited Company | ₹2 Crore Turnover</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('calculator')">GST Calculator</button>
+            <button class="tab" onclick="showTab('reference')">Tax Rates</button>
+            <button class="tab" onclick="showTab('deadlines')">Deadlines</button>
+        </div>
+        
+        <!-- Calculator Tab -->
+        <div id="calculator" class="tab-content active">
+            <div class="card">
+                <h2>📊 Monthly Sales Breakdown</h2>
+                <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">Enter your monthly taxable sales (excluding exports)</p>
+                
+                <div class="sales-grid">
+                    <div class="sales-item">
+                        <label>5% Rate Items</label>
+                        <input type="number" id="sales5" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                    <div class="sales-item">
+                        <label>12% Rate Items</label>
+                        <input type="number" id="sales12" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                    <div class="sales-item">
+                        <label>18% Rate Items</label>
+                        <input type="number" id="sales18" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                    <div class="sales-item">
+                        <label>28% Rate Items</label>
+                        <input type="number" id="sales28" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Zero-Rated Exports (0%)</label>
+                    <input type="number" id="exports" placeholder="₹0" oninput="calculateGST()">
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📥 Purchases & ITC</h2>
+                <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">Enter your purchases to calculate Input Tax Credit</p>
+                
+                <div class="sales-grid">
+                    <div class="sales-item">
+                        <label>5% Purchases</label>
+                        <input type="number" id="purchase5" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                    <div class="sales-item">
+                        <label>12% Purchases</label>
+                        <input type="number" id="purchase12" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                    <div class="sales-item">
+                        <label>18% Purchases</label>
+                        <input type="number" id="purchase18" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                    <div class="sales-item">
+                        <label>28% Purchases</label>
+                        <input type="number" id="purchase28" placeholder="₹0" oninput="calculateGST()">
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="calculateGST()">Calculate GST Liability</button>
+            
+            <div id="result" class="result">
+                <h3>📊 Monthly GST Summary</h3>
+                
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="value" id="totalSales">₹0</div>
+                        <div class="label">Total Sales</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="value" id="outputTax">₹0</div>
+                        <div class="label">Output Tax</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="value" id="itcClaimed">₹0</div>
+                        <div class="label">ITC Claimed</div>
+                    </div>
+                </div>
+                
+                <div class="net-payment">
+                    <div class="label">Net GST Payable</div>
+                    <div class="amount" id="netPayable">₹0</div>
+                </div>
+                
+                <div class="info-box">
+                    <h4>⚠️ Important Notes</h4>
+                    <p id="notes">Enter your sales and purchases above to see the GST calculation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reference Tab -->
+        <div id="reference" class="tab-content">
+            <div class="card">
+                <h2>📋 GST Rate Quick Reference</h2>
+                
+                <h3 class="section-title">0% Rate (Exempt)</h3>
+                <p style="color: #888;">Fresh milk, unpacked grains, newspapers, religious items</p>
+                
+                <h3 class="section-title">5% Rate</h3>
+                <p style="color: #888;">Sugar, spices, tea, coffee (without milk), edible oils, butter, ghee, prepackaged food items</p>
+                
+                <h3 class="section-title">12% Rate</h3>
+                <p style="color: #888;">Butter, cheese, processed food, frozen meat products, IT equipment</p>
+                
+                <h3 class="section-title">18% Rate (Most Common)</h3>
+                <p style="color: #888;">Services, phones, electronics, software, machinery, furniture, most B2B supplies</p>
+                
+                <h3 class="section-title">28% Rate (Luxury)</h3>
+                <p style="color: #888;">Cars, tobacco, aerated drinks, luxury goods, specific consumer durables</p>
+                
+                <h3 class="section-title">Special Rates</h3>
+                <p style="color: #888;">1% (composition), 0.25% (gold), 3% (real estate under construction)</p>
+            </div>
+        </div>
+        
+        <!-- Deadlines Tab -->
+        <div id="deadlines" class="tab-content">
+            <div class="card">
+                <h2>📅 Important Deadlines</h2>
+                
+                <h3 class="section-title">Monthly Filings (Turnover > ₹5 Crore)</h3>
+                <p style="color: #888; margin-bottom: 1rem;">
+                    <strong>GSTR-1:</strong> 11th of next month<br>
+                    <strong>GSTR-3B:</strong> 20th of next month
+                </p>
+                
+                <h3 class="section-title">Quarterly Filings (Turnover ≤ ₹5 Crore)</h3>
+                <p style="color: #888; margin-bottom: 1rem;">
+                    <strong>GSTR-1:</strong> 31st of next quarter<br>
+                    <strong>GSTR-3B:</strong> 22nd/24th of next quarter
+                </p>
+                
+                <h3 class="section-title">Other Deadlines</h3>
+                <p style="color: #888; margin-bottom: 1rem;">
+                    <strong>GSTR-9 (Annual):</strong> 31st December<br>
+                    <strong>GSTR-9C (Audit):</strong> 31st December (if turnover > ₹2 Crore)<br>
+                    <strong>E-way Bill:</strong> Before transport > ₹50,000
+                </p>
+                
+                <div class="info-box">
+                    <h4>⚠️ Late Filing Fees</h4>
+                    <p>
+                        GSTR-1: ₹50/day (max ₹5,000)<br>
+                        GSTR-3B: ₹20/day (max ₹10,000)
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🇮🇳 AI GST Expert v1.0 | Private Limited Company</p>
+            <p style="margin-top: 0.5rem; color: #444;">For advisory, consult a qualified CA. This is a calculator only.</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        function formatCurrency(amount) {
+            return '₹' + amount.toLocaleString('en-IN');
+        }
+        
+        function calculateGST() {
+            const sales5 = parseFloat(document.getElementById('sales5').value) || 0;
+            const sales12 = parseFloat(document.getElementById('sales12').value) || 0;
+            const sales18 = parseFloat(document.getElementById('sales18').value) || 0;
+            const sales28 = parseFloat(document.getElementById('sales28').value) || 0;
+            const exports = parseFloat(document.getElementById('exports').value) || 0;
+            
+            const purchase5 = parseFloat(document.getElementById('purchase5').value) || 0;
+            const purchase12 = parseFloat(document.getElementById('purchase12').value) || 0;
+            const purchase18 = parseFloat(document.getElementById('purchase18').value) || 0;
+            const purchase28 = parseFloat(document.getElementById('purchase28').value) || 0;
+            
+            // Output Tax Calculation
+            const outputTax5 = sales5 * 0.05;
+            const outputTax12 = sales12 * 0.12;
+            const outputTax18 = sales18 * 0.18;
+            const outputTax28 = sales28 * 0.28;
+            
+            const totalOutputTax = outputTax5 + outputTax12 + outputTax18 + outputTax28;
+            const totalSales = sales5 + sales12 + sales18 + sales28 + exports;
+            
+            // ITC Calculation
+            const itc5 = purchase5 * 0.05;
+            const itc12 = purchase12 * 0.12;
+            const itc18 = purchase18 * 0.18;
+            const itc28 = purchase28 * 0.28;
+            
+            const totalITC = itc5 + itc12 + itc18 + itc28;
+            
+            // Net Payable
+            const netPayable = totalOutputTax - totalITC;
+            
+            // Update Display
+            document.getElementById('totalSales').textContent = formatCurrency(totalSales);
+            document.getElementById('outputTax').textContent = formatCurrency(totalOutputTax);
+            document.getElementById('itcClaimed').textContent = formatCurrency(totalITC);
+            document.getElementById('netPayable').textContent = formatCurrency(netPayable);
+            
+            // Notes
+            let notes = [];
+            
+            if (sales12 > 0) {
+                notes.push(`• B2B supplies to registered persons require GSTR-3B reporting`);
+            }
+            
+            if (exports > 0) {
+                notes.push(`• Export supplies are zero-rated but require GST registration`);
+            }
+            
+            if (netPayable > 500000) {
+                notes.push(`• Large liability: Ensure sufficient balance in cash ledger before filing`);
+            }
+            
+            if (totalITC > totalOutputTax) {
+                notes.push(`• Excess ITC of ${formatCurrency(Math.abs(netPayable))} can be carried forward`);
+            }
+            
+            if (purchase18 > sales18 * 0.5) {
+                notes.push(`• High ITC ratio: Ensure purchases are for business purposes only`);
+            }
+            
+            if (notes.length === 0) {
+                notes.push('• Ensure all purchase invoices have correct GSTIN and HSN codes');
+                notes.push('• Reconcile ITC with GSTR-2B before claiming');
+                notes.push('• File GSTR-1 by 11th and GSTR-3B by 20th');
+            }
+            
+            document.getElementById('notes').innerHTML = notes.join('<br>');
+            
+            // Show Result
+            document.getElementById('result').classList.add('show');
+        }
+    </script>
+</body>
+</html>
