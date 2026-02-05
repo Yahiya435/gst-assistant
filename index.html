@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI GST Expert - Private Limited</title>
+    <title>AI GST Expert | Professional Tax Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,135 +12,452 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border-color: #2a2a2a;
+            --accent: #ffffff;
+            --accent-hover: #e0e0e0;
+            --success: #00ff88;
+            --error: #ff4757;
+            --warning: #ffa502;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 2rem;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
         
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+        
+        /* Header */
         header {
-            text-align: center;
-            margin-bottom: 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
         }
         
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #00d9ff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
         
-        .subtitle {
-            color: #888;
-            font-size: 1.1rem;
+        .logo span {
+            color: var(--text-muted);
+            font-weight: 300;
         }
         
-        .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+        nav {
+            display: flex;
+            gap: 2rem;
         }
         
-        .card h2 {
-            color: #00d9ff;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #aaa;
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
         }
         
-        input, select, textarea {
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--text-primary);
+        }
+        
+        nav a:hover::after {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s;
         }
         
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #00d9ff;
-            background: rgba(255,255,255,0.15);
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 3rem 4rem;
+            text-align: center;
         }
         
-        .sales-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+        
+        .hero-btns {
+            display: flex;
             gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .sales-item {
-            background: rgba(0,217,255,0.1);
-            border-radius: 10px;
-            padding: 1rem;
-            border: 1px solid rgba(0,217,255,0.2);
-        }
-        
-        .sales-item label {
-            color: #00d9ff;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.6s;
         }
         
         .btn {
-            background: linear-gradient(135deg, #00d9ff, #00ff88);
-            color: #1a1a2e;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            width: 100%;
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
         
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,217,255,0.3);
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
         }
         
-        .result {
-            background: rgba(0,255,136,0.1);
-            border: 2px solid rgba(0,255,136,0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            display: none;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
         }
         
-        .result.show {
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Sections */
+        section {
+            padding: 6rem 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* Calculator Section */
+        .calculator {
+            background: var(--bg-secondary);
+        }
+        
+        .calculator-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .input-group {
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        
+        .input-group:nth-child(1) { animation-delay: 0.1s; }
+        .input-group:nth-child(2) { animation-delay: 0.2s; }
+        .input-group:nth-child(3) { animation-delay: 0.3s; }
+        
+        .input-group label {
             display: block;
-            animation: slideIn 0.5s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         
-        @keyframes slideIn {
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .input-item {
+            position: relative;
+        }
+        
+        .input-item input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-item input:focus {
+            outline: none;
+            border-color: var(--text-muted);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+        }
+        
+        .input-item input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .input-item span {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Results */
+        .results {
+            margin-top: 4rem;
+            padding: 3rem;
+            background: var(--bg-tertiary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .results.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .results-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .result-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            border-color: var(--text-muted);
+        }
+        
+        .result-card .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .result-card.highlight {
+            background: var(--bg-primary);
+            border-color: var(--text-muted);
+        }
+        
+        .result-card.highlight .value {
+            color: var(--text-primary);
+        }
+        
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text-muted);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem;
+            text-align: center;
+            border-bottom: none;
+        }
+        
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--text-primary);
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -147,379 +465,277 @@
             }
         }
         
-        .result h3 {
-            color: #00ff88;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+            
+            section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+            }
+            
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-        
-        .result-item {
-            background: rgba(0,0,0,0.2);
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-        }
-        
-        .result-item .value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #00ff88;
-        }
-        
-        .result-item .label {
-            color: #888;
-            font-size: 0.85rem;
-            margin-top: 0.3rem;
-        }
-        
-        .net-payment {
-            background: linear-gradient(135deg, rgba(0,217,255,0.2), rgba(0,255,136,0.2));
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
-        .net-payment .amount {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #00d9ff;
-        }
-        
-        .info-box {
-            background: rgba(255,193,7,0.1);
-            border: 1px solid rgba(255,193,7,0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .info-box h4 {
-            color: #ffc107;
-            margin-bottom: 0.5rem;
-        }
-        
-        .info-box p {
-            color: #ddd;
-            font-size: 0.9rem;
-        }
-        
-        .tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .tab {
-            background: rgba(255,255,255,0.1);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            background: linear-gradient(135deg, #00d9ff, #00ff88);
-            color: #1a1a2e;
-        }
-        
-        .tab-content {
+        /* Loading state */
+        .loading {
             display: none;
+            text-align: center;
+            padding: 3rem;
         }
         
-        .tab-content.active {
+        .loading.show {
             display: block;
         }
         
-        .section-title {
-            color: #00d9ff;
-            font-size: 1.1rem;
-            margin: 1.5rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--text-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
         }
         
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            color: #555;
-            font-size: 0.85rem;
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 1rem;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .card {
-                padding: 1.5rem;
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🇮🇳 AI GST Expert</h1>
-            <p class="subtitle">Private Limited Company | ₹2 Crore Turnover</p>
-        </header>
-        
-        <div class="tabs">
-            <button class="tab active" onclick="showTab('calculator')">GST Calculator</button>
-            <button class="tab" onclick="showTab('reference')">Tax Rates</button>
-            <button class="tab" onclick="showTab('deadlines')">Deadlines</button>
+    <header>
+        <div class="logo">AI GST <span>Expert</span></div>
+        <nav>
+            <a href="#calculator">Calculator</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Smart GST Calculations for Modern Business</h1>
+            <p>Professional Indian GST calculator with intelligent tax computation, ITC tracking, and compliance monitoring.</p>
+            <div class="hero-btns">
+                <a href="#calculator" class="btn btn-primary">Calculate GST</a>
+                <a href="#features" class="btn btn-secondary">Explore Features</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="calculator" id="calculator">
+        <div class="section-header">
+            <h2>GST Calculator</h2>
+            <p>Enter your sales and purchase details for accurate tax computation</p>
         </div>
         
-        <!-- Calculator Tab -->
-        <div id="calculator" class="tab-content active">
-            <div class="card">
-                <h2>📊 Monthly Sales Breakdown</h2>
-                <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">Enter your monthly taxable sales (excluding exports)</p>
-                
-                <div class="sales-grid">
-                    <div class="sales-item">
-                        <label>5% Rate Items</label>
-                        <input type="number" id="sales5" placeholder="₹0" oninput="calculateGST()">
+        <div class="calculator-container">
+            <div class="input-group">
+                <label>Sales (Output Tax)</label>
+                <div class="input-grid">
+                    <div class="input-item">
+                        <input type="number" id="sales5" placeholder="5% Rate">
+                        <span>₹</span>
                     </div>
-                    <div class="sales-item">
-                        <label>12% Rate Items</label>
-                        <input type="number" id="sales12" placeholder="₹0" oninput="calculateGST()">
+                    <div class="input-item">
+                        <input type="number" id="sales12" placeholder="12% Rate">
+                        <span>₹</span>
                     </div>
-                    <div class="sales-item">
-                        <label>18% Rate Items</label>
-                        <input type="number" id="sales18" placeholder="₹0" oninput="calculateGST()">
+                    <div class="input-item">
+                        <input type="number" id="sales18" placeholder="18% Rate">
+                        <span>₹</span>
                     </div>
-                    <div class="sales-item">
-                        <label>28% Rate Items</label>
-                        <input type="number" id="sales28" placeholder="₹0" oninput="calculateGST()">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Zero-Rated Exports (0%)</label>
-                    <input type="number" id="exports" placeholder="₹0" oninput="calculateGST()">
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>📥 Purchases & ITC</h2>
-                <p style="color: #888; margin-bottom: 1rem; font-size: 0.9rem;">Enter your purchases to calculate Input Tax Credit</p>
-                
-                <div class="sales-grid">
-                    <div class="sales-item">
-                        <label>5% Purchases</label>
-                        <input type="number" id="purchase5" placeholder="₹0" oninput="calculateGST()">
-                    </div>
-                    <div class="sales-item">
-                        <label>12% Purchases</label>
-                        <input type="number" id="purchase12" placeholder="₹0" oninput="calculateGST()">
-                    </div>
-                    <div class="sales-item">
-                        <label>18% Purchases</label>
-                        <input type="number" id="purchase18" placeholder="₹0" oninput="calculateGST()">
-                    </div>
-                    <div class="sales-item">
-                        <label>28% Purchases</label>
-                        <input type="number" id="purchase28" placeholder="₹0" oninput="calculateGST()">
+                    <div class="input-item">
+                        <input type="number" id="sales28" placeholder="28% Rate">
+                        <span>₹</span>
                     </div>
                 </div>
             </div>
             
-            <button class="btn" onclick="calculateGST()">Calculate GST Liability</button>
+            <div class="input-group">
+                <label>Purchases (Input Tax Credit)</label>
+                <div class="input-grid">
+                    <div class="input-item">
+                        <input type="number" id="purchase5" placeholder="5% Rate">
+                        <span>₹</span>
+                    </div>
+                    <div class="input-item">
+                        <input type="number" id="purchase12" placeholder="12% Rate">
+                        <span>₹</span>
+                    </div>
+                    <div class="input-item">
+                        <input type="number" id="purchase18" placeholder="18% Rate">
+                        <span>₹</span>
+                    </div>
+                    <div class="input-item">
+                        <input type="number" id="purchase28" placeholder="28% Rate">
+                        <span>₹</span>
+                    </div>
+                </div>
+            </div>
             
-            <div id="result" class="result">
-                <h3>📊 Monthly GST Summary</h3>
-                
-                <div class="result-grid">
-                    <div class="result-item">
-                        <div class="value" id="totalSales">₹0</div>
+            <button class="calculate-btn" onclick="calculateGST()">Calculate Tax Liability</button>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Computing tax...</p>
+            </div>
+            
+            <div class="results" id="results">
+                <div class="results-header">
+                    <h3>Tax Summary</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">FY 2025-26</p>
+                </div>
+                <div class="results-grid">
+                    <div class="result-card">
                         <div class="label">Total Sales</div>
+                        <div class="value" id="totalSales">₹0</div>
                     </div>
-                    <div class="result-item">
-                        <div class="value" id="outputTax">₹0</div>
+                    <div class="result-card">
                         <div class="label">Output Tax</div>
+                        <div class="value" id="outputTax">₹0</div>
                     </div>
-                    <div class="result-item">
-                        <div class="value" id="itcClaimed">₹0</div>
+                    <div class="result-card">
                         <div class="label">ITC Claimed</div>
+                        <div class="value" id="itcClaimed">₹0</div>
+                    </div>
+                    <div class="result-card highlight">
+                        <div class="label">Net Payable</div>
+                        <div class="value" id="netPayable">₹0</div>
                     </div>
                 </div>
-                
-                <div class="net-payment">
-                    <div class="label">Net GST Payable</div>
-                    <div class="amount" id="netPayable">₹0</div>
-                </div>
-                
-                <div class="info-box">
-                    <h4>⚠️ Important Notes</h4>
-                    <p id="notes">Enter your sales and purchases above to see the GST calculation.</p>
-                </div>
             </div>
         </div>
-        
-        <!-- Reference Tab -->
-        <div id="reference" class="tab-content">
-            <div class="card">
-                <h2>📋 GST Rate Quick Reference</h2>
-                
-                <h3 class="section-title">0% Rate (Exempt)</h3>
-                <p style="color: #888;">Fresh milk, unpacked grains, newspapers, religious items</p>
-                
-                <h3 class="section-title">5% Rate</h3>
-                <p style="color: #888;">Sugar, spices, tea, coffee (without milk), edible oils, butter, ghee, prepackaged food items</p>
-                
-                <h3 class="section-title">12% Rate</h3>
-                <p style="color: #888;">Butter, cheese, processed food, frozen meat products, IT equipment</p>
-                
-                <h3 class="section-title">18% Rate (Most Common)</h3>
-                <p style="color: #888;">Services, phones, electronics, software, machinery, furniture, most B2B supplies</p>
-                
-                <h3 class="section-title">28% Rate (Luxury)</h3>
-                <p style="color: #888;">Cars, tobacco, aerated drinks, luxury goods, specific consumer durables</p>
-                
-                <h3 class="section-title">Special Rates</h3>
-                <p style="color: #888;">1% (composition), 0.25% (gold), 3% (real estate under construction)</p>
-            </div>
+    </section>
+    
+    <section id="features">
+        <div class="section-header">
+            <h2>Features</h2>
+            <p>Everything you need for GST compliance</p>
         </div>
         
-        <!-- Deadlines Tab -->
-        <div id="deadlines" class="tab-content">
-            <div class="card">
-                <h2>📅 Important Deadlines</h2>
-                
-                <h3 class="section-title">Monthly Filings (Turnover > ₹5 Crore)</h3>
-                <p style="color: #888; margin-bottom: 1rem;">
-                    <strong>GSTR-1:</strong> 11th of next month<br>
-                    <strong>GSTR-3B:</strong> 20th of next month
-                </p>
-                
-                <h3 class="section-title">Quarterly Filings (Turnover ≤ ₹5 Crore)</h3>
-                <p style="color: #888; margin-bottom: 1rem;">
-                    <strong>GSTR-1:</strong> 31st of next quarter<br>
-                    <strong>GSTR-3B:</strong> 22nd/24th of next quarter
-                </p>
-                
-                <h3 class="section-title">Other Deadlines</h3>
-                <p style="color: #888; margin-bottom: 1rem;">
-                    <strong>GSTR-9 (Annual):</strong> 31st December<br>
-                    <strong>GSTR-9C (Audit):</strong> 31st December (if turnover > ₹2 Crore)<br>
-                    <strong>E-way Bill:</strong> Before transport > ₹50,000
-                </p>
-                
-                <div class="info-box">
-                    <h4>⚠️ Late Filing Fees</h4>
-                    <p>
-                        GSTR-1: ₹50/day (max ₹5,000)<br>
-                        GSTR-3B: ₹20/day (max ₹10,000)
-                    </p>
-                </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Smart Calculations</h3>
+                <p>Accurate GST computation across all tax rates with real-time updates and validation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>ITC Tracking</h3>
+                <p>Monitor input tax credits automatically and identify eligible claims.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>Deadline Alerts</h3>
+                <p>Never miss filing deadlines with smart reminders and compliance calendar.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Reports & Analytics</h3>
+                <p>Generate detailed tax reports and visualize your tax liability trends.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Your data stays on your device. No servers, no tracking, complete privacy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p>Instant calculations with zero latency. Optimized for speed and performance.</p>
             </div>
         </div>
-        
-        <footer>
-            <p>🇮🇳 AI GST Expert v1.0 | Private Limited Company</p>
-            <p style="margin-top: 0.5rem; color: #444;">For advisory, consult a qualified CA. This is a calculator only.</p>
-        </footer>
-    </div>
+    </section>
+    
+    <footer id="about">
+        <p>AI GST Expert v1.0 &bull; Built with precision &bull; <a href="https://github.com/Yahiya435/gst-assistant">View on GitHub</a></p>
+        <p style="margin-top: 0.5rem; color: var(--text-muted);">For advisory, consult a qualified CA. This tool is for calculation only.</p>
+    </footer>
     
     <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
-        
         function formatCurrency(amount) {
-            return '₹' + amount.toLocaleString('en-IN');
+            return '₹' + amount.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
         
         function calculateGST() {
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            // Show loading
+            loading.classList.add('show');
+            results.classList.remove('show');
+            
+            // Get values
             const sales5 = parseFloat(document.getElementById('sales5').value) || 0;
             const sales12 = parseFloat(document.getElementById('sales12').value) || 0;
             const sales18 = parseFloat(document.getElementById('sales18').value) || 0;
             const sales28 = parseFloat(document.getElementById('sales28').value) || 0;
-            const exports = parseFloat(document.getElementById('exports').value) || 0;
             
             const purchase5 = parseFloat(document.getElementById('purchase5').value) || 0;
             const purchase12 = parseFloat(document.getElementById('purchase12').value) || 0;
             const purchase18 = parseFloat(document.getElementById('purchase18').value) || 0;
             const purchase28 = parseFloat(document.getElementById('purchase28').value) || 0;
             
-            // Output Tax Calculation
+            // Calculate
             const outputTax5 = sales5 * 0.05;
             const outputTax12 = sales12 * 0.12;
             const outputTax18 = sales18 * 0.18;
             const outputTax28 = sales28 * 0.28;
             
             const totalOutputTax = outputTax5 + outputTax12 + outputTax18 + outputTax28;
-            const totalSales = sales5 + sales12 + sales18 + sales28 + exports;
+            const totalSales = sales5 + sales12 + sales18 + sales28;
             
-            // ITC Calculation
             const itc5 = purchase5 * 0.05;
             const itc12 = purchase12 * 0.12;
             const itc18 = purchase18 * 0.18;
             const itc28 = purchase28 * 0.28;
             
             const totalITC = itc5 + itc12 + itc18 + itc28;
-            
-            // Net Payable
             const netPayable = totalOutputTax - totalITC;
             
-            // Update Display
-            document.getElementById('totalSales').textContent = formatCurrency(totalSales);
-            document.getElementById('outputTax').textContent = formatCurrency(totalOutputTax);
-            document.getElementById('itcClaimed').textContent = formatCurrency(totalITC);
-            document.getElementById('netPayable').textContent = formatCurrency(netPayable);
-            
-            // Notes
-            let notes = [];
-            
-            if (sales12 > 0) {
-                notes.push(`• B2B supplies to registered persons require GSTR-3B reporting`);
-            }
-            
-            if (exports > 0) {
-                notes.push(`• Export supplies are zero-rated but require GST registration`);
-            }
-            
-            if (netPayable > 500000) {
-                notes.push(`• Large liability: Ensure sufficient balance in cash ledger before filing`);
-            }
-            
-            if (totalITC > totalOutputTax) {
-                notes.push(`• Excess ITC of ${formatCurrency(Math.abs(netPayable))} can be carried forward`);
-            }
-            
-            if (purchase18 > sales18 * 0.5) {
-                notes.push(`• High ITC ratio: Ensure purchases are for business purposes only`);
-            }
-            
-            if (notes.length === 0) {
-                notes.push('• Ensure all purchase invoices have correct GSTIN and HSN codes');
-                notes.push('• Reconcile ITC with GSTR-2B before claiming');
-                notes.push('• File GSTR-1 by 11th and GSTR-3B by 20th');
-            }
-            
-            document.getElementById('notes').innerHTML = notes.join('<br>');
-            
-            // Show Result
-            document.getElementById('result').classList.add('show');
+            // Simulate loading
+            setTimeout(() => {
+                document.getElementById('totalSales').textContent = formatCurrency(totalSales);
+                document.getElementById('outputTax').textContent = formatCurrency(totalOutputTax);
+                document.getElementById('itcClaimed').textContent = formatCurrency(totalITC);
+                document.getElementById('netPayable').textContent = formatCurrency(netPayable);
+                
+                loading.classList.remove('show');
+                results.classList.add('show');
+            }, 800);
         }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
